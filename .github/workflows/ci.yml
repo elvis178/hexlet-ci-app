@@ -1,0 +1,32 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main  # Запуск при пуше в ветку main
+  pull_request:
+    branches:
+      - main  # Запуск при создании PR в ветку main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}  # Это значение будет меняться в зависимости от текущей ОС из matrix
+
+    steps:
+      # 1. Клонируем репозиторий
+      - uses: actions/checkout@v4  # Проверка исходного кода
+
+      # 2. Устанавливаем зависимости
+      - name: Set up project
+        run: make setup  # Выполняем команду make setup для подготовки проекта
+
+      # 3. Запуск линтинга
+      - name: Run lint
+        run: make lint  # Выполняем команду make lint для линтинга кода
+
+      # 4. Запуск тестов
+      - name: Run tests
+        run: make test  # Выполняем команду make test для запуска тестов
