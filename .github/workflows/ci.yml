@@ -19,14 +19,30 @@ jobs:
       # 1. Клонируем репозиторий
       - uses: actions/checkout@v4  # Проверка исходного кода
 
-      # 2. Устанавливаем зависимости
+      # 2. Устанавливаем Node.js
+
+      - name: Set up Node.js
+        uses: actions/checkout@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+
+      # 3. Устанавливаем зависимости
       - name: Set up project
         run: make setup  # Выполняем команду make setup для подготовки проекта
 
-      # 3. Запуск линтинга
+      # 4. Запуск линтинга
       - name: Run lint
         run: make lint  # Выполняем команду make lint для линтинга кода
 
-      # 4. Запуск тестов
+      # 5. Запуск тестов
       - name: Run tests
         run: make test  # Выполняем команду make test для запуска тестов
+
+      # 6. Вывод строки Hello from Hexlet!    
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Print Hello from Hexlet
+        uses: hexlet-components/hello-from-hexlet-action@release
