@@ -17,10 +17,11 @@ jobs:
 
     steps:
       # 1. Клонируем репозиторий
-      - uses: actions/checkout@v4  # Проверка исходного кода
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4  # Проверка исходного кода
 
       # 2. Устанавливаем Node.js
-
       - name: Set up Node.js
         uses: actions/checkout@v4
         with:
@@ -40,9 +41,5 @@ jobs:
         run: make test  # Выполняем команду make test для запуска тестов
 
       # 6. Вывод строки Hello from Hexlet!    
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@v4
-
       - name: Print Hello from Hexlet
         uses: hexlet-components/hello-from-hexlet-action@release
